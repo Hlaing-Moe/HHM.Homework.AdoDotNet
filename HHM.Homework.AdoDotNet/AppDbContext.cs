@@ -24,6 +24,7 @@ namespace HHM.Homework.AdoDotNet
         }
         public DbSet<StudentDto> StudentResult { get; set; }
 
+
     }
 
 }

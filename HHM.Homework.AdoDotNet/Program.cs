@@ -1,41 +1,34 @@
-﻿using Dapper;
-using HHM.Homework.AdoDotNet;
-using Microsoft.Data.SqlClient;
-using System.Data;
-using System.Data.Common;
+﻿using HHM.Homework.AdoDotNet;
 
-SqlConnectionStringBuilder stringBuilder = new SqlConnectionStringBuilder()
+AppDbContext db = new AppDbContext();
+List<StudentDto> lst = db.StudentResult.ToList();
+foreach(var item in lst)
 {
-    DataSource = ".",
-    InitialCatalog = "HHM.Homework.AdoDotNet",
-    UserID = "sa",
-    Password = "sasa@123",
-    TrustServerCertificate = true
+    Console.WriteLine($"{item.StudentNo} - {item.StudentName}");
+}
+StudentDto student = new StudentDto();
+{
+    String StudentNo = "S001";
+    String StudentName = "Phyu";
+    String FatherName = "U Kaung";
+    String Gender = "Female";
+    String Adderss = "Natmauk";
+    String Result = "Pass";
 };
+db.StudentResult.Add(student);
+int result = db.SaveChanges();
 
-using IDbConnection db = new SqlConnection(sb.ConnectionString);
-db.Open();
-var query = db.Query<StudentResult>("select * from Tbl-StudentResult");
-List<StudentResult> lst  = query.ToList();
-for (int i = 0; i < lst.Count; i++)
+StudentDto editStudent = db.StudentResult.Where(x => x.StudentId == 5).FirstOrDefault();
+if (editStudent != null)
 {
-    StudentResult item = lst[i];
-    Console.WriteLine($"{i + 1} {item.StudentNo} - {item.StudentName}");
-}
-int no = 0;
-foreach (StudentResult item in lst)
-{
-    Console.WriteLine($"{no + 1} {item.StudentNo} - {item.StudentName}");
-    no++;
+    editStudent.StudentName = "Moe";
+    db.SaveChanges();
 }
 
-Console.ReadLine();
-
-
-
-
-
-
-
-
-
+StudentDto removeStudent = db.StudentResult.Where(x => x. StudentId == 3).FirstOrDefault();
+if (removeStudent != null)
+{
+   db.StudentResult.Remove(student);
+    db.SaveChanges();
+}
+    Console.ReadLine();
