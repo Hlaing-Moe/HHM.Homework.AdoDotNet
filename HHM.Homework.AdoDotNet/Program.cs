@@ -1,19 +1,26 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿using Dapper;
 using HHM.Homework.AdoDotNet;
+using Microsoft.Data.SqlClient;
+using System.Data;
+using System.Data.Common;
 
-AdoDotNetService adoDotNetService = new AdoDotNetService();
+SqlConnectionStringBuilder stringBuilder = new SqlConnectionStringBuilder()
+{
+    DataSource = ".",
+    InitialCatalog = "HHM.Homework.AdoDotNet",
+    UserID = "sa",
+    Password = "sasa@123",
+    TrustServerCertificate = true
+};
 
-Console.WriteLine("Reading Data...");
-adoDotNetService.Read();
+using IDbConnection db = new SqlConnection(sb.ConnectionString);
+db.Open();
+List<StudentResult> lst  = db.Query<StudentResult>("select * from tbl-StudentResult");
 
-Console.WriteLine("Adding Data");
-adoDotNetService.Create();
 
-Console.WriteLine("Updating Data");
-adoDotNetService.Update();
 
-Console.WriteLine("Deleting Data");
-adoDotNetService.Delete();
 
-Console.WriteLine("Done");
-Console.ReadLine();
+
+
+
+

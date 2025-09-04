@@ -1,0 +1,6 @@
+ HHMAdoDotNetTraining
+
+- Ado.Net
+- Dapper
+- Entity Framework Core
+ 
