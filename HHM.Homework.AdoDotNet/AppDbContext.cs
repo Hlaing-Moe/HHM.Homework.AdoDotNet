@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace HHM.Homework.AdoDotNet
 {
-    internal class AppDbContext : DbContext
+    public class AppDbContext : DbContext
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            SqlConnectionStringBuilder sb = new SqlConnectionStringBuilder()
+            SqlConnectionStringBuilder stringBuilder = new SqlConnectionStringBuilder()
             {
                 DataSource = ".",
                 InitialCatalog = "HHM.Homework.AdoDotNet",
@@ -22,9 +22,8 @@ namespace HHM.Homework.AdoDotNet
             };
             optionsBuilder.UseSqlServer(sb.ConnectionString);
         }
-        public DbSet<StudentDto>Students { get; set; }z
+        public DbSet<StudentDto> StudentResult { get; set; }
 
-
-        }
     }
+
 }

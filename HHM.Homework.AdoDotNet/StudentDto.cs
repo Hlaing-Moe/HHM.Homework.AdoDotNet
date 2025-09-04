@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace HHM.Homework.AdoDotNet
 {
+    [Table("Tbl-StudentResult")]
     public class StudentDto
     {
-        [KEY]
+        [Key]
         public int StudentId { get; set; }
         public string StudentNo { get; set; }
         public string StudentName { get; set; }

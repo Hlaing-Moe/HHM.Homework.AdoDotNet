@@ -21,9 +21,9 @@ namespace HHM.Homework.AdoDotNet
         };
         public void Read()
         {
-            using (SqlConnection con = new SqlConnection())
+            using (SqlConnection connection = new SqlConnection())
             {
-                con.Open();
+                connection.Open();
                 string queryRead = @"SELECT[StudentId]
                               ,[StudentNo]
                               ,[StudentName]
@@ -34,7 +34,7 @@ namespace HHM.Homework.AdoDotNet
                               ,[Result]
                               ,[DeleteFlag]
                          FROM[dbo].[Tbl_StudentResult]";
-                SqlCommand cmd = new SqlCommand(queryRead, con);
+                SqlCommand cmd = new SqlCommand(queryRead, connection);
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -46,7 +46,7 @@ namespace HHM.Homework.AdoDotNet
                     string name = dr["StudentName"].ToString();
                     Console.WriteLine($"{i + 1} {no} - {name}");
                 }
-                con.Close();
+                connection.Close();
             }
         }
         public void Create()
@@ -79,6 +79,7 @@ namespace HHM.Homework.AdoDotNet
 
                 string message = result > 0 ? "Created Successful" : "failed to Create";
                 Console.WriteLine(message);
+                connection.Close();
             }
 
         }

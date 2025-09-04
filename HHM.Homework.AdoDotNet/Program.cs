@@ -15,7 +15,22 @@ SqlConnectionStringBuilder stringBuilder = new SqlConnectionStringBuilder()
 
 using IDbConnection db = new SqlConnection(sb.ConnectionString);
 db.Open();
-List<StudentResult> lst  = db.Query<StudentResult>("select * from tbl-StudentResult");
+var query = db.Query<StudentResult>("select * from Tbl-StudentResult");
+List<StudentResult> lst  = query.ToList();
+for (int i = 0; i < lst.Count; i++)
+{
+    StudentResult item = lst[i];
+    Console.WriteLine($"{i + 1} {item.StudentNo} - {item.StudentName}");
+}
+int no = 0;
+foreach (StudentResult item in lst)
+{
+    Console.WriteLine($"{no + 1} {item.StudentNo} - {item.StudentName}");
+    no++;
+}
+
+Console.ReadLine();
+
 
 
 
